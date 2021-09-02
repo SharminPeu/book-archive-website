@@ -31,16 +31,17 @@ const displaySearchResult = books => {
     const searchResult = document.getElementById('search-result')
     document.getElementById('error-message').style.display = 'none';
     const bookList = books.docs;
+    // slice array element 
+    const arraySliceList=bookList.slice(0,30);
 
     if (bookList.length === 0) {
         displayError();
     }
     // console.log(books)
     else {
-        document.getElementById('book-numbers').innerText = `Total Books Found ${books.numFound}`;
+        document.getElementById('book-numbers').innerText = `Show books ${arraySliceList.length} of Total book result ${books.numFound}`;
         searchResult.textContent = ''
-        bookList.forEach(book => {
-            // console.log(book)
+        arraySliceList.forEach(book => {
             const div = document.createElement('div')
             div.classList.add('col')
             div.innerHTML = `
