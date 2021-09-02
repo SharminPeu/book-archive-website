@@ -12,10 +12,10 @@ const searchBook = () => {
     }
     // load data 
     else {
-        const url = `http://openlibrary.org/search.json?q=${searchText}`
+        const url = `https://openlibrary.org/search.json?q=${searchText}`
         fetch(url)
             .then(res => res.json())
-            .then(data => displaySearchResult(data.docs))
+            .then(data => displaySearchResult(data))
     }
 }
 // error handling function 
@@ -27,16 +27,19 @@ const displayError = () => {
 }
 // Display search result 
 const displaySearchResult = books => {
+    console.log(books)
     const searchResult = document.getElementById('search-result')
     document.getElementById('error-message').style.display = 'none';
-    if (books.length === 0) {
+    const bookList = books.docs;
+
+    if (bookList.length === 0) {
         displayError();
     }
     // console.log(books)
     else {
-        document.getElementById('book-numbers').innerText = `Total Books Found ${books.length}`;
+        document.getElementById('book-numbers').innerText = `Total Books Found ${books.numFound}`;
         searchResult.textContent = ''
-        books.forEach(book => {
+        bookList.forEach(book => {
             // console.log(book)
             const div = document.createElement('div')
             div.classList.add('col')
